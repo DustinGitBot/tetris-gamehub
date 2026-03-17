@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,12 +16,12 @@
 <body class="bg-black text-cyan-400 min-h-screen flex flex-col items-center justify-center p-4">
     <div class="text-center mb-4">
         <h1 class="text-3xl md:text-4xl mb-2 neon-text">TETRIS</h1>
-        <p class="text-xs text-cyan-600">Usa flechas o botones para mover</p>
+        <p class="text-xs text-cyan-600">Use arrows or buttons to move</p>
     </div>
 
     <!-- TOP Score Display -->
     <div id="topDisplay" class="mb-4 text-center text-xs text-yellow-400">
-        Cargando TOP...
+        Loading TOP...
     </div>
 
     <div class="flex flex-col md:flex-row gap-4 items-start">
@@ -32,36 +32,36 @@
         <div class="flex flex-col gap-4">
             <!-- Next Piece -->
             <div class="border-2 border-cyan-400 p-4 bg-gray-900">
-                <p class="text-xs mb-2 text-center">SIGUIENTE</p>
+                <p class="text-xs mb-2 text-center">NEXT</p>
                 <canvas id="nextCanvas" width="100" height="100" class="bg-black"></canvas>
             </div>
 
             <!-- Score -->
             <div class="border-2 border-cyan-400 p-4 bg-gray-900 text-center">
-                <p class="text-xs mb-2">PUNTOS</p>
+                <p class="text-xs mb-2">SCORE</p>
                 <p id="score" class="text-xl text-yellow-400">0</p>
             </div>
 
             <!-- Level -->
             <div class="border-2 border-cyan-400 p-4 bg-gray-900 text-center">
-                <p class="text-xs mb-2">NIVEL</p>
+                <p class="text-xs mb-2">LEVEL</p>
                 <p id="level" class="text-xl">1</p>
             </div>
 
             <!-- Lines -->
             <div class="border-2 border-cyan-400 p-4 bg-gray-900 text-center">
-                <p class="text-xs mb-2">LINEAS</p>
+                <p class="text-xs mb-2">LINES</p>
                 <p id="lines" class="text-xl">0</p>
             </div>
 
             <!-- Name Input (shown on game over) -->
             <div id="nameInputDiv" class="hidden border-2 border-cyan-400 p-4 bg-gray-900">
-                <p class="text-xs mb-2 text-center">NOMBRE (max 10)</p>
-                <input type="text" id="playerName" maxlength="10" class="w-full px-2 py-1 text-black text-xs mb-2" placeholder="Tu nombre">
-                <button id="submitScoreBtn" class="w-full bg-cyan-600 hover:bg-cyan-500 text-white text-xs py-2 px-4">GRABAR</button>
+                <p class="text-xs mb-2 text-center">NAME (max 10)</p>
+                <input type="text" id="playerName" maxlength="10" class="w-full px-2 py-1 text-black text-xs mb-2" placeholder="Your name">
+                <button id="submitScoreBtn" class="w-full bg-cyan-600 hover:bg-cyan-500 text-white text-xs py-2 px-4">SAVE</button>
             </div>
 
-            <button id="restartBtn" class="bg-cyan-600 hover:bg-cyan-500 text-white text-xs py-3 px-4 border-2 border-cyan-400">REINICIAR</button>
+            <button id="restartBtn" class="bg-cyan-600 hover:bg-cyan-500 text-white text-xs py-3 px-4 border-2 border-cyan-400">RESTART</button>
         </div>
     </div>
 
@@ -495,14 +495,14 @@
             lastTime = time;
             dropCounter += deltaTime;
 
-            // Dificultad dinámica basada en líneas (destreza del jugador)
-            // Cuanto más líneas, más rápido. Fórmula exponencial para que se ponga difícil gradualmente
-            const baseInterval = 1000; // 1 segundo inicial
-            const minInterval = 150;   // Velocidad máxima (muy difícil)
+            // Dynamic difficulty based on lines (player skill)
+            // The more lines, the faster. Exponential formula to get harder gradually
+            const baseInterval = 1000; // 1 second initial
+            const minInterval = 150;   // Maximum speed (very difficult)
             
-            // Factor de dificultad: cada línea reduce un poco, pero las primeras son más suaves
-            // y las últimas son más agresivas (exponencial)
-            const difficultyFactor = Math.pow(0.97, lines); // 3% más rápido por línea
+            // Difficulty factor: each line reduces slightly, but first ones are smoother
+            // and later ones are more aggressive (exponential)
+            const difficultyFactor = Math.pow(0.97, lines); // 3% faster per line
             const dropInterval = Math.max(minInterval, baseInterval * difficultyFactor);
 
             if (dropCounter > dropInterval) {
